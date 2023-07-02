@@ -12,7 +12,7 @@ pipeline {
         docker {
           args '-v /root/.m2/repository:/root/.m2/repository'
           reuseNode true
-          image 'maven-openjdk17'
+          image 'maven-openjdk17:latest'
         }
 
       }
