@@ -10,8 +10,10 @@ pipeline {
    steps {
     checkout scm
    }
-  }}
-}'''
+  }
+}
+}
+'''
         }
       }
 
