@@ -3,19 +3,18 @@ pipeline {
   stages {
     stage('SCM') {
       steps {
-        sh '''pipeline {
- agent any
+        sh '''
  stages {
   stage(\'SCM\') {
    steps {
     checkout scm
    }
   }
-}
+
 }
 '''
-        }
       }
-
     }
+
   }
+}
