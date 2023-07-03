@@ -37,7 +37,7 @@ pipeline {
            step([$class: 'CheckStylePublisher',
               
                  pattern: '**/target/checkstyle-result.xml',
-                               
+                ])                
           }
         }
 
