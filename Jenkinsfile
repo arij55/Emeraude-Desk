@@ -12,33 +12,28 @@ pipeline {
         stage('Compile') {
           agent {
             docker {
-              image 'simaofsilva/maven-openjdk11-alpine:latest'
               args '-v /root/.m2/repository:/root/.m2/repository'
               reuseNode true
+              image 'maven:3.6.0-jdk-8-alpine'
             }
 
           }
           steps {
-            sh '''docker run 
-mvn clean compile'''
+            sh 'mvn clean compile'
           }
         }
 
         stage('CheckStyle') {
           agent {
             docker {
-              image 'simaofsilva/maven-openjdk11-alpine:latest'
               args '-v /root/.m2/repository:/root/.m2/repository'
               reuseNode true
+              image 'maven:3.6.0-jdk-8-alpine'
             }
 
           }
           steps {
             sh ' mvn checkstyle:checkstyle'
-            step([$class: 'CheckStylePublisher',
-                                                  
-                                                     pattern: '**/target/checkstyle-result.xml',
-                                                    ])
           }
         }
 
