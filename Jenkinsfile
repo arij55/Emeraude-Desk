@@ -34,10 +34,10 @@ pipeline {
           }
           steps {
             sh ' mvn checkstyle:checkstyle'
-           step([$class: 'CheckStylePublisher',
-              
-                 pattern: '**/target/checkstyle-result.xml',
-                ])                
+            step([$class: 'CheckStylePublisher',
+                          
+                             pattern: '**/target/checkstyle-result.xml',
+                            ])
           }
         }
 
