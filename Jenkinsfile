@@ -12,7 +12,7 @@ pipeline {
         stage('Compile') {
           agent {
             docker {
-              image 'huangzp88/maven-openjdk17:latest'
+              image 'simaofsilva/maven-openjdk11-alpine:latest'
               args '-v /root/.m2/repository:/root/.m2/repository'
               reuseNode true
             }
@@ -26,7 +26,7 @@ pipeline {
         stage('CheckStyle') {
           agent {
             docker {
-              image 'huangzp88/maven-openjdk17:latest'
+              image 'simaofsilva/maven-openjdk11-alpine:latest'
               args '-v /root/.m2/repository:/root/.m2/repository'
               reuseNode true
             }
