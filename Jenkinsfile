@@ -20,7 +20,26 @@ pipeline {
         sh 'mvn clean compile'
       }
     }
-
+ stage('CheckStyle') {
+     agent {
+      docker {
+       image 'huangzp88/maven-openjdk17:latest'
+       args '-v /root/.m2/repository:/root/.m2/repository'
+       reuseNode true
+      }
+     }
+     steps {
+      sh ' mvn checkstyle:checkstyle'
+      step([$class: 'CheckStylePublisher',
+       defaultEncoding: '',
+       healthy: '100',
+       pattern: '**/target/checkstyle-result.xml',
+       unHealthy: '90',
+      ])
+     }
+    }
+   }
+  }
   }
 }
-  }}
+  
