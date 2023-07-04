@@ -6,40 +6,70 @@ pipeline {
         checkout scm
       }
     }
-
-    stage('Build') {
+ stage('Build') {
       parallel {
         stage('Compile') {
           agent {
             docker {
-              image 'maven:3.6.0-jdk-8-alpine'
               reuseNode true
-              args '-v /root/.m2/repository:/root/.m2/repository'
+              args '-v/root/.m2/repository:/root/.m2/repository'
+              image 'huangzp88/maven-openjdk17'
             }
 
           }
           steps {
-            sh '''
+            sh '''echo PATH = ${PATH}
+echo M2_HOME = ${M2_HOME}
 mvn clean compile'''
           }
         }
-
         stage('CheckStyle') {
           agent {
             docker {
-              image 'maven:3.6.0-jdk-8-alpine'
               args '-v /root/.m2/repository:/root/.m2/repository'
               reuseNode true
+              image 'huangzp88/maven-openjdk17'
             }
 
           }
           steps {
-            sh ' mvn checkstyle:checkstyle'
+            sh 'mvn checkstyle:checkstyle'
+            sh '''$class: CheckStylePublisher
+'''
           }
         }
 
       }
     }
 
+    stage('Unit Tests') {
+      agent {
+        docker {
+          image 'huangzp88/maven-openjdk17'
+          reuseNode true
+          args '-v/root/.m2/repository:/root/.m2/repository'
+        }
+
+      }
+      when {
+        anyOf {
+          branch 'master'
+        }
+
+      }
+      post {
+        always {
+          junit 'target/surefire-reports/**/*.xml'
+        }
+
+      }
+      steps {
+        sh 'mvn test'
+      }
+    }
+
+  }
+  options {
+    skipDefaultCheckout()
   }
 }
