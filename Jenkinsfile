@@ -6,7 +6,8 @@ pipeline {
         checkout scm
       }
     }
- stage('Build') {
+
+    stage('Build') {
       parallel {
         stage('Compile') {
           agent {
@@ -18,11 +19,11 @@ pipeline {
 
           }
           steps {
-            sh '''echo PATH = ${PATH}
-echo M2_HOME = ${M2_HOME}
+            sh '''
 mvn clean compile'''
           }
         }
+
         stage('CheckStyle') {
           agent {
             docker {
