@@ -66,6 +66,7 @@ mvn clean compile'''
       }
       steps {
         sh 'mvn test'
+        archiveArtifacts 'test'
       }
     }
 
