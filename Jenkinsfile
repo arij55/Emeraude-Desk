@@ -36,11 +36,10 @@ mvn clean compile'''
           steps {
             sh ' mvn checkstyle:checkstyle'
             sh '''$class: \'CheckStylePublisher\',                 
-           defaultEncoding: \'\',                  
-              healthy: \'100\',                 
+                            
+                             
   pattern: \'**/target/checkstyle-result.xml\',   
-                unHealthy: \'90\',              
-      '''
+                '''
           }
         }
 
