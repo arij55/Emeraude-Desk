@@ -38,8 +38,8 @@ mvn clean compile'''
             sh '''$class: \'CheckStylePublisher\',                 
                             
                              
-  pattern: \'**/target/checkstyle-result.xml\',   
-                '''
+ '''
+            findBuildScans()
           }
         }
 
