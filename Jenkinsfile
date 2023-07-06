@@ -72,7 +72,32 @@ mvn clean compile'''
     }
 
   }
-
+ stage('Integration Tests') {
+   when {
+    anyOf { branch 'master'; branch 'develop' }
+   }
+   agent {
+    docker {
+     image 'huangzp88/maven-openjdk17'
+     args '-v /root/.m2/repository:/root/.m2/repository'
+     reuseNode true
+    }
+   }
+   steps {
+    sh 'mvn verify -Dsurefire.skip=true'
+   }
+   post {
+    always {
+     junit 'target/failsafe-reports/**/*.xml'
+    }
+    success {
+     stash(name: 'artifact', includes: 'target/*.war')
+     stash(name: 'pom', includes: 'pom.xml')
+     // to add artifacts in jenkins pipeline tab (UI)
+     archiveArtifacts 'target/*.war'
+    }
+   }
+  }
   options {
     skipDefaultCheckout()
   }
