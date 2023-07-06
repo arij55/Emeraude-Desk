@@ -35,7 +35,7 @@ mvn clean compile'''
           }
           steps {
             sh ' mvn checkstyle:checkstyle'
-            sh '''$class: \'CheckStylePublisher\',                 
+            sh '''$class: \'CheckStylePublisher\'               
                             
                              
  '''
@@ -109,8 +109,8 @@ mvn clean compile'''
 
           }
           steps {
-            sh ' mvn pmd:pmd'
-            step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
+            sh ''' mvn pmd:pmd
+$class: \'PmdPublisher\''''
           }
         }
 
