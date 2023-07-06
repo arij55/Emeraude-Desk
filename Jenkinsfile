@@ -74,7 +74,7 @@ mvn clean compile'''
   }
  stage('Integration Tests') {
    when {
-    anyOf { branch 'master'; branch 'develop' }
+    anyOf { branch 'master'}
    }
    agent {
     docker {
