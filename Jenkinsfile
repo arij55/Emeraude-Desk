@@ -96,8 +96,6 @@ mvn clean compile'''
    }
   }
   
-  options {
-    skipDefaultCheckout()
-  }
+
 }
 }
