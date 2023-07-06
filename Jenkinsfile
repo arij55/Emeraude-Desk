@@ -72,19 +72,8 @@ mvn clean compile'''
     }
 
   }
- stage('Integration Tests') {
-   when {
-    anyOf { branch 'master'}
-   }
-   agent {
-    docker {
-     image 'huangzp88/maven-openjdk17'
-     args '-v /root/.m2/repository:/root/.m2/repository'
-     reuseNode true
-    }
-   }
-   
-  }
+
+  
   options {
     skipDefaultCheckout()
   }
