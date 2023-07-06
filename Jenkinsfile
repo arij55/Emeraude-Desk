@@ -72,7 +72,7 @@ mvn clean compile'''
     }
 
   }
-  stage('Integration Tests') {
+  stage ('Integration Tests') {
    when {
     anyOf { branch 'master'}
    }
