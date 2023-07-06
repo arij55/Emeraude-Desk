@@ -113,9 +113,19 @@ mvn clean compile'''
 $class: \'PmdPublisher\''''
           }
         }
-
+ stage('Findbugs') {
+     agent {
+      docker {
+       image 'huangzp88/maven-openjdk17'
+       args '-v /root/.m2/repository:/root/.m2/repository'
+       reuseNode true
       }
+     }
+     steps {
+      sh ' mvn findbugs:findbugs'
+      // using findbugs plugin
+      findbugs pattern: '**/target/findbugsXml.xml'
+     }
     }
-
   }
-}
+}}}
