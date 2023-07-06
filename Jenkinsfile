@@ -125,7 +125,7 @@ $class: \'PmdPublisher\''''
           }
           steps {
             sh ' mvn findbugs:findbugs'
-            findbugs(pattern: '**/target/findbugsXml.xml')
+          
           }
         }
 
