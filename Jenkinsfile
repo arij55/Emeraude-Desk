@@ -6,6 +6,7 @@ pipeline {
         checkout scm
       }
     }
+
     stage('Build') {
       parallel {
         stage('Compile') {
@@ -71,9 +72,20 @@ mvn clean compile'''
       }
     }
 
-  }
+    stage('Integration Tests') {
+      agent {
+        docker {
+          image 'huangzp88/maven-openjdk17'
+          args '-v /root/.m2/repository:/root/.m2/repository'
+        }
 
-  
+      }
+      steps {
+        sh 'mvn verify -Dsurefire.skip=true'
+      }
+    }
+
+  }
   options {
     skipDefaultCheckout()
   }
