@@ -102,3 +102,4 @@ mvn clean compile'''
     skipDefaultCheckout()
   }
 }
+}
