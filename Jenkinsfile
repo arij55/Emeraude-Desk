@@ -96,6 +96,23 @@ mvn clean compile'''
         sh 'mvn verify '
       }
     }
+    stage('Code Quality Analysis') {
+   parallel {
+    stage('PMD') {
+     agent {
+      docker {
+       image 'huangzp88/maven-openjdk17'
+       args '-v /root/.m2/repository:/root/.m2/repository'
+       reuseNode true
+      }
+     }
+     steps {
+      sh ' mvn pmd:pmd'
+      // using pmd plugin
+      step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
+     }
+    }
 
   }
+}}
 }
