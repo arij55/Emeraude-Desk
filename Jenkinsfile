@@ -125,17 +125,19 @@ $class: \'PmdPublisher\''''
           }
           steps {
             sh ' mvn findbugs:findbugs'
-             post {
-              always {
-               junit 'target/failsafe-reports/**/*.xml'
+            post() {
+              always() {
+                junit 'target/failsafe-reports/**/*.xml'
               }
-              success {
-               stash(name: 'artifact', includes: 'target/*.war')
-               stash(name: 'pom', includes: 'pom.xml')
-               // to add artifacts in jenkins pipeline tab (UI)
-               archiveArtifacts 'target/*.war'
+
+              success() {
+                stash(name: 'artifact', includes: 'target/*.war')
+                stash(name: 'pom', includes: 'pom.xml')
+                archiveArtifacts 'target/*.war'
               }
-          
+
+            }
+
           }
         }
 
@@ -143,5 +145,4 @@ $class: \'PmdPublisher\''''
     }
 
   }
-}
 }
