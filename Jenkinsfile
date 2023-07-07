@@ -125,7 +125,7 @@ $class: \'PmdPublisher\''''
           }
           steps {
             sh ' mvn findbugs:findbugs'
-          }
+    
            post {
               always {
                junit 'target/failsafe-reports/**/*.xml'
@@ -137,7 +137,7 @@ $class: \'PmdPublisher\''''
                archiveArtifacts 'target/*.war'
               }
         }
-
+          }
       }
     }
 
