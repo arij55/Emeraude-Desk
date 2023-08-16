@@ -142,21 +142,32 @@ $class: \'PmdPublisher\''''
             sh ' mvn javadoc:javadoc'
             step([$class: 'JavadocArchiver', javadocDir: './target/site/apidocs', keepAll: 'true'])
           }
-        }}
-Post {
-always {
-  // using   warning next gen plugin
-  recordIssues   aggregatingResults: true, tools: [
-    javaDoc(),
-    checkStyle(pattern: '**/target/checkstyle-result.xml'),
-    findBugs(pattern: '**/target/findbugsXml.xml',useRankAsPriority:  true),
-    pmdParser(pattern: '**/target/pmd.xml')
-  ]
- }
-}
+        }
+        stage('SonarQube') {
+     agent {
+      docker {
+       image 'maven:3.6.0-jdk-8-alpine'
+       args "-v /root/.m2/repository:/root/.m2/repository"
+       reuseNode true
+      }
+     }
+     steps {
+      sh " mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL:$SONARQUBE_PORT"
+     }
+    }
+   }
+   post {
+    always {
+     // using warning next gen plugin
+     recordIssues aggregatingResults: true, tools: [javaDoc(), checkStyle(pattern: '**/target/checkstyle-result.xml'), findBugs(pattern: '**/target/findbugsXml.xml', useRankAsPriority: true), pmdParser(pattern: '**/target/pmd.xml')]
+    }
+   }
+  }
+      }
+
   
       }
-    }
+    
 
-  }
+  
 
