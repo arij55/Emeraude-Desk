@@ -143,12 +143,17 @@ $class: \'PmdPublisher\''''
             step([$class: 'JavadocArchiver', javadocDir: './target/site/apidocs', keepAll: 'true'])
           }
         }}
- post {
-    always {
-     // using warning next gen plugin
-     recordIssues aggregatingResults: true, tools: [javaDoc(), checkStyle(pattern: '**/target/checkstyle-result.xml'), findBugs(pattern: '**/target/findbugsXml.xml', useRankAsPriority: true), pmdParser(pattern: '**/target/pmd.xml')]
-    }
-   }
+Post {
+always {
+  // using   warning next gen plugin
+  recordIssues   aggregatingResults: true, tools: [
+    javaDoc(),
+    checkStyle(pattern: '**/target/checkstyle-result.xml'),
+    findBugs(pattern: '**/target/findbugsXml.xml',useRankAsPriority:  true),
+    pmdParser(pattern: '**/target/pmd.xml')
+  ]
+ }
+}
   
       }
     }
