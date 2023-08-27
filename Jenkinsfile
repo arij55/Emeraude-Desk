@@ -6,6 +6,7 @@ pipeline {
         checkout scm
       }
     }
+
     stage('Build') {
       parallel {
         stage('Compile') {
