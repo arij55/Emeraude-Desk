@@ -1,5 +1,9 @@
 pipeline {
   agent any
+   environment {
+  SONARQUBE_URL = "http://192.168.1.17"
+  SONARQUBE_PORT = "9000"
+ }
   stages {
     stage('SCM') {
       steps {
@@ -149,9 +153,20 @@ $class: \'PmdPublisher\''''
             step([$class: 'JavadocArchiver', javadocDir: './target/site/apidocs', keepAll: 'true'])
           }
         }
-
+stage('SonarQube') {
+     agent {
+      docker {
+       image 'huangzp88/maven-openjdk17'
+       args "-v /root/.m2/repository:/root/.m2/repository"
+       reuseNode true
+      }
+     }
+     steps {
+      sh " mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL:$SONARQUBE_PORT"
+     }
+    }
+   }
       }
     }
 
   }
-}
