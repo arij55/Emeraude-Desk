@@ -162,6 +162,7 @@ $class: \'PmdPublisher\''''
             sh " mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL:$SONARQUBE_PORT"
           }
         }
+      }
 stage('Deploy Artifact To Nexus') {
    when {
     branch 'master'
@@ -210,7 +211,7 @@ stage('Deploy Artifact To Nexus') {
     }
    }
   }
-      }
+      
     }
 
   }
