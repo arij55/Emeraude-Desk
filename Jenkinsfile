@@ -173,16 +173,15 @@ $class: \'PmdPublisher\''''
         script {
           unstash 'pom'
           unstash 'artifact'
-          // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
+
           pom = readMavenPom file: "pom.xml";
-          // Find built artifact under target folder
+
           filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-          // Print some info from the artifact found
+
           echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-          // Extract the path from the File found
+
           artifactPath = filesByGlob[0].path;
-          // Assign to a boolean response verifying If the artifact name exists
-          artifactExists = fileExists artifactPath;
+
           if (artifactExists) {
             nexusArtifactUploader(
               nexusVersion: NEXUS_VERSION,
@@ -199,7 +198,7 @@ $class: \'PmdPublisher\''''
                 file: artifactPath,
                 type: pom.packaging
               ],
-              // Lets upload the pom.xml file for additional information for Transitive dependencies
+
               [artifactId: pom.artifactId,
               classifier: '',
               file: "pom.xml",
