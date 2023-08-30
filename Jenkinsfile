@@ -174,7 +174,7 @@ $class: \'PmdPublisher\''''
           unstash 'pom'
           unstash 'artifact'
 
-
+          pom = readMavenPom file: "pom.xml";
 
           filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
 
