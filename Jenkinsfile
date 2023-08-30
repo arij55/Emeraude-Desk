@@ -198,7 +198,6 @@ $class: \'PmdPublisher\''''
                 file: artifactPath,
                 type: pom.packaging
               ],
-
               [artifactId: pom.artifactId,
               classifier: '',
               file: "pom.xml",
