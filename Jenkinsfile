@@ -52,7 +52,6 @@ mvn clean compile'''
           reuseNode true
           args '-v/root/.m2/repository:/root/.m2/repository'
         }
-
       }
       when {
         anyOf {
