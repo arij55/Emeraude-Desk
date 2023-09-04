@@ -171,13 +171,8 @@ $class: \'PmdPublisher\''''
       }
       steps {
         readMavenPom(file: 'pom.xml')
-        sh ''' filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-   
-     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+        sh '''
     
-     artifactPath = filesByGlob[0].path;
-    
-     artifactExists = fileExists artifactPath;
      if (artifactExists) {
       nexusArtifactUploader(
        nexusVersion: NEXUS_VERSION,
