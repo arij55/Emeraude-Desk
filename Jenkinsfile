@@ -1,14 +1,5 @@
 pipeline {
   agent any
-  environment {
-    NEXUS_VERSION = 'nexus3'
-    NEXUS_PROTOCOL = 'http'
-    NEXUS_URL = 'nexus:8081'
-    NEXUS_REPOSITORY = 'maven-snapshots'
-    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-    SONARQUBE_URL = 'http://192.168.1.17'
-    SONARQUBE_PORT = '9000'
-  }
   stages {
     stage('SCM') {
       steps {
@@ -61,6 +52,7 @@ mvn clean compile'''
           reuseNode true
           args '-v/root/.m2/repository:/root/.m2/repository'
         }
+
       }
       when {
         anyOf {
@@ -178,11 +170,18 @@ $class: \'PmdPublisher\''''
         branch 'master'
       }
       steps {
-        readMavenPom(file: 'pom.xml');
-
+        readMavenPom(file: 'pom.xml')
+      }
     }
 
   }
-  
-}
+  environment {
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_PROTOCOL = 'http'
+    NEXUS_URL = 'nexus:8081'
+    NEXUS_REPOSITORY = 'maven-snapshots'
+    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+    SONARQUBE_URL = 'http://192.168.1.17'
+    SONARQUBE_PORT = '9000'
+  }
 }
