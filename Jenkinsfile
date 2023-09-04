@@ -170,8 +170,6 @@ $class: \'PmdPublisher\''''
         branch 'master'
       }
       steps {
-        sh '''unstash \'pom\'
-     unstash \'artifact\''''
         readMavenPom(file: 'pom.xml')
         sh ''' filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
    
