@@ -173,7 +173,7 @@ $class: \'PmdPublisher\''''
      echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
      artifactPath = filesByGlob[0].path;
      artifactExists = fileExists artifactPath;
-     if (artifactExists) {
+    
       nexusArtifactUploader(
        nexusVersion: NEXUS_VERSION,
        protocol: NEXUS_PROTOCOL,
@@ -194,9 +194,7 @@ $class: \'PmdPublisher\''''
         ]
        ]
       )
-     } else {
-      error "*** File: ${artifactPath}, could not be found";
-     }
+    
     }
    }
   }
