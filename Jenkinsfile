@@ -181,7 +181,7 @@ $class: \'PmdPublisher\''''
           filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
           echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
           artifactPath = filesByGlob[0].path;
-          readMavenPom(file: 'pom.xml')
+
           nexusArtifactUploader(
             nexusVersion: NEXUS_VERSION,
             protocol: NEXUS_PROTOCOL,
@@ -190,31 +190,21 @@ $class: \'PmdPublisher\''''
             version: pom.version,
             repository: NEXUS_REPOSITORY,
             credentialsId: NEXUS_CREDENTIAL_ID,
-            artifacts: [
-              [artifactId: pom.artifactId,
-              classifier: '',
-              file: artifactPath,
-              type: pom.packaging],
-              [artifactId: pom.artifactId,
-              classifier: '',
-              file: "pom.xml",
-              type: "pom"
-            ]
-          ]
-        )
+
+          )
+        }
+
       }
-
     }
-  }
 
-}
-environment {
-  NEXUS_VERSION = 'nexus3'
-  NEXUS_PROTOCOL = 'http'
-  NEXUS_URL = 'nexus:8081'
-  NEXUS_REPOSITORY = 'maven-snapshots'
-  NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-  SONARQUBE_URL = 'http://192.168.1.17'
-  SONARQUBE_PORT = '9000'
-}
+  }
+  environment {
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_PROTOCOL = 'http'
+    NEXUS_URL = 'nexus:8081'
+    NEXUS_REPOSITORY = 'maven-snapshots'
+    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+    SONARQUBE_URL = 'http://192.168.1.17'
+    SONARQUBE_PORT = '9000'
+  }
 }
