@@ -175,22 +175,10 @@ $class: \'PmdPublisher\''''
       }
       steps {
         script {
-
           pom = readMavenPom file: "pom.xml";
 
-          nexusArtifactUploader (
-            nexusVersion: NEXUS_VERSION,
-            protocol: NEXUS_PROTOCOL,
-            nexusUrl: NEXUS_URL,
-            groupId: pom.groupId,
-            version: pom.version,
-            repository: NEXUS_REPOSITORY,
-            credentialsId: NEXUS_CREDENTIAL_ID
+          nexusArtifactUploader
 
-
-
-
-          )
         }
 
       }
