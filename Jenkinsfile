@@ -181,23 +181,35 @@ $class: \'PmdPublisher\''''
           filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
           echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
           artifactPath = filesByGlob[0].path;
-          nexusArtifactUploader
-
-
-
-        }
-
-      }
+          nexusArtifactUploader (
+            artifacts: [
+              // Artifact generated such as .jar, .ear and .war files.
+              [artifactId: pom.artifactId,
+              classifier: '',
+              file: artifactPath,
+              type: pom.packaging
+            ],
+            // Lets upload the pom.xml file for additional information for Transitive dependencies
+            [artifactId: pom.artifactId,
+            classifier: '',
+            file: "pom.xml",
+            type: "pom"
+          ]
+        ]
+      )
     }
 
   }
-  environment {
-    NEXUS_VERSION = 'nexus3'
-    NEXUS_PROTOCOL = 'http'
-    NEXUS_URL = 'nexus:8081'
-    NEXUS_REPOSITORY = 'maven-snapshots'
-    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-    SONARQUBE_URL = 'http://192.168.1.17'
-    SONARQUBE_PORT = '9000'
-  }
+}
+
+}
+environment {
+NEXUS_VERSION = 'nexus3'
+NEXUS_PROTOCOL = 'http'
+NEXUS_URL = 'nexus:8081'
+NEXUS_REPOSITORY = 'maven-snapshots'
+NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+SONARQUBE_URL = 'http://192.168.1.17'
+SONARQUBE_PORT = '9000'
+}
 }
