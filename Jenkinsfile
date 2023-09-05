@@ -192,31 +192,24 @@ $class: \'PmdPublisher\''''
             artifacts: [
               // Artifact generated such as .jar, .ear and .war files.
               [artifactId: pom.artifactId,
-              classifier: '',
-              file: artifactPath,
-              type: pom.packaging
-            ],
-            // Lets upload the pom.xml file for additional information for Transitive dependencies
-            [artifactId: pom.artifactId,
-            classifier: '',
-            file: "pom.xml",
-            type: "pom"
-          ]
-        ]
-      )
-    }
 
+            ],
+
+          ]
+        )
+      }
+
+    }
   }
-}
 
 }
 environment {
-NEXUS_VERSION = 'nexus3'
-NEXUS_URL = 'nexus:8081'
-NEXUS_PROTOCOL = 'http'
-NEXUS_REPOSITORY = 'maven-snapshots'
-NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-SONARQUBE_URL = 'http://192.168.1.17'
-SONARQUBE_PORT = '9000'
+  NEXUS_VERSION = 'nexus3'
+  NEXUS_URL = 'nexus:8081'
+  NEXUS_PROTOCOL = 'http'
+  NEXUS_REPOSITORY = 'maven-snapshots'
+  NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+  SONARQUBE_URL = 'http://192.168.1.17'
+  SONARQUBE_PORT = '9000'
 }
 }
