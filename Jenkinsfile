@@ -178,7 +178,6 @@ $class: \'PmdPublisher\''''
           pom = readMavenPom file: "pom.xml";
 
           nexusArtifactUploader
-
         }
 
       }
