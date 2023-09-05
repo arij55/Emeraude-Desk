@@ -213,7 +213,7 @@ $class: \'PmdPublisher\''''
 environment {
 NEXUS_VERSION = "nexus3"
 NEXUS_URL = "nexus:8081"
-NEXUS_URL ="nexus:8081"
+
 NEXUS_PROTOCOL =  "http"
    NEXUS_REPOSITORY = "maven-snapshots"
  
