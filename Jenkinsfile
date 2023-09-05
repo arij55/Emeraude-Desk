@@ -205,6 +205,7 @@ $class: \'PmdPublisher\''''
         )
       }
 
+      readMavenPom(file: 'pom.xml')
     }
   }
 
