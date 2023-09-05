@@ -216,10 +216,11 @@ NEXUS_URL = "nexus:8081"
 NEXUS_URL ="nexus:8081"
 NEXUS_PROTOCOL =  "http"
    NEXUS_REPOSITORY = "maven-snapshots"
-  // Jenkins credential id to authenticate to Nexus OSS
+ 
   NEXUS_CREDENTIAL_ID = "nexus-credentials"
-  /* 
+
 SONARQUBE_URL = 'http://192.168.1.17'
 SONARQUBE_PORT = '9000'
-}
-}
+}}
+
+
