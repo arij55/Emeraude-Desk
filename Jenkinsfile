@@ -182,13 +182,13 @@ $class: \'PmdPublisher\''''
           echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
           artifactPath = filesByGlob[0].path;
           nexusArtifactUploader (
-       nexusVersion: NEXUS_VERSION,
-       protocol: NEXUS_PROTOCOL,
-       nexusUrl: NEXUS_URL,
-       groupId: pom.groupId,
-       version: pom.version,
-       repository: NEXUS_REPOSITORY,
-       credentialsId: NEXUS_CREDENTIAL_ID,
+            nexusVersion: NEXUS_VERSION,
+            protocol: NEXUS_PROTOCOL,
+            nexusUrl: NEXUS_URL,
+            groupId: pom.groupId,
+            version: pom.version,
+            repository: NEXUS_REPOSITORY,
+            credentialsId: NEXUS_CREDENTIAL_ID,
             artifacts: [
               // Artifact generated such as .jar, .ear and .war files.
               [artifactId: pom.artifactId,
@@ -211,16 +211,12 @@ $class: \'PmdPublisher\''''
 
 }
 environment {
-NEXUS_VERSION = "nexus3"
-NEXUS_URL = "nexus:8081"
-
-NEXUS_PROTOCOL =  "http"
-   NEXUS_REPOSITORY = "maven-snapshots"
- 
-  NEXUS_CREDENTIAL_ID = "nexus-credentials"
-
+NEXUS_VERSION = 'nexus3'
+NEXUS_URL = 'nexus:8081'
+NEXUS_PROTOCOL = 'http'
+NEXUS_REPOSITORY = 'maven-snapshots'
+NEXUS_CREDENTIAL_ID = 'nexus-credentials'
 SONARQUBE_URL = 'http://192.168.1.17'
 SONARQUBE_PORT = '9000'
-}}
-
-
+}
+}
