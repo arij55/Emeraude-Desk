@@ -184,7 +184,7 @@ $class: \'PmdPublisher\''''
           nexusArtifactUploader (
             nexusVersion: nexus3,
        protocol: http,
-       nexusUrl: nexus:8081,
+       nexusUrl: NEXUS_URL,
        groupId: pom.groupId,
        version: pom.version,
        repository: maven-snapshots,
@@ -211,7 +211,7 @@ $class: \'PmdPublisher\''''
 
 }
 environment {
-
+NEXUS_URL = 'nexus:8081'
 SONARQUBE_URL = 'http://192.168.1.17'
 SONARQUBE_PORT = '9000'
 }
