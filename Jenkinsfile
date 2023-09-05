@@ -1,14 +1,5 @@
 pipeline {
   agent any
-   environment {
-    NEXUS_VERSION = 'nexus3'
-    NEXUS_PROTOCOL = 'http'
-    NEXUS_URL = 'nexus:8081'
-    NEXUS_REPOSITORY = 'maven-snapshots'
-    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-    SONARQUBE_URL = 'http://192.168.1.17'
-    SONARQUBE_PORT = '9000'
-  }
   stages {
     stage('SCM') {
       steps {
@@ -148,56 +139,83 @@ $class: \'PmdPublisher\''''
             docker {
               image 'maven:3.6.0-jdk-8-alpine'
               args '-v /root/.m2/repository:/root/.m2/repository'
-              reuseNode true}  }
+              reuseNode true
+            }
+
+          }
           steps {
             sh ' mvn javadoc:javadoc'
-            step([$class: 'JavadocArchiver', javadocDir: './target/site/apidocs', keepAll: 'true'])}}
+            step([$class: 'JavadocArchiver', javadocDir: './target/site/apidocs', keepAll: 'true'])
+          }
+        }
+
         stage('SonarQube') {
           agent {
             docker {
               image 'maven:3.6.0-jdk-8-alpine'
               reuseNode true
-            }  }
-          steps {sh " mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL:$SONARQUBE_PORT"}} } }
+            }
+
+          }
+          steps {
+            sh " mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL:$SONARQUBE_PORT"
+          }
+        }
+
+      }
+    }
 
     stage('Deploy Artifact To Nexus') {
-   when {
-    anyOf { branch 'master'; branch 'develop' }
-   }
-   steps {
-    script {
-     unstash 'pom'
-     unstash 'artifact'
-     pom = readMavenPom file: "pom.xml";
-     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-     artifactPath = filesByGlob[0].path;
-     artifactExists = fileExists artifactPath;
-    
-      nexusArtifactUploader(
-       nexusVersion: NEXUS_VERSION,
-       protocol: NEXUS_PROTOCOL,
-       nexusUrl: NEXUS_URL,
-       groupId: pom.groupId,
-       version: pom.version,
-       repository: NEXUS_REPOSITORY,
-       credentialsId: NEXUS_CREDENTIAL_ID,
-       artifacts: [
-        [artifactId: pom.artifactId,
-         classifier: '',
-         file: artifactPath,
-         type: pom.packaging],
-        [artifactId: pom.artifactId,
-         classifier: '',
-         file: "pom.xml",
-         type: "pom"
-        ]
-       ]
-      )
-    
+      when {
+        anyOf {
+          branch 'master'
+          branch 'develop'
+        }
+
+      }
+      steps {
+        script {
+          unstash 'pom'
+          unstash 'artifact'
+          pom = readMavenPom file: "pom.xml";
+          filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+          echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+          artifactPath = filesByGlob[0].path;
+          artifactExists = fileExists artifactPath;
+
+          nexusArtifactUploader(
+            nexusVersion: NEXUS_VERSION,
+            protocol: NEXUS_PROTOCOL,
+            nexusUrl: NEXUS_URL,
+            groupId: pom.groupId,
+            version: pom.version,
+            repository: NEXUS_REPOSITORY,
+            credentialsId: NEXUS_CREDENTIAL_ID,
+            artifacts: [
+              [artifactId: pom.artifactId,
+              classifier: '',
+              file: artifactPath,
+              type: pom.packaging],
+              [artifactId: pom.artifactId,
+              classifier: '',
+              file: "pom.xml",
+              type: "pom"
+            ]
+          ]
+        )
+      }
+
     }
-   }
   }
- 
+
+}
+environment {
+  NEXUS_VERSION = 'nexus3'
+  NEXUS_PROTOCOL = 'http'
+  NEXUS_URL = 'nexus:8081'
+  NEXUS_REPOSITORY = 'maven-snapshots'
+  NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+  SONARQUBE_URL = 'http://192.168.1.17'
+  SONARQUBE_PORT = '9000'
 }
 }
