@@ -164,57 +164,15 @@ $class: \'PmdPublisher\''''
 
       }
     }
-/*
-    stage('Deploy Artifact To Nexus') {
-      when {
-        anyOf {
-          branch 'master'
-        }
 
-      }
-      steps {
-        script {
-          unstash 'pom'
-          unstash 'artifact'
-          pom = readMavenPom file: "pom.xml";
-          // Find built artifact under target folder
-          filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-          artifactPath = filesByGlob[0].path;
-          nexusArtifactUploader(
-            nexusVersion: NEXUS_VERSION,
-            protocol: NEXUS_PROTOCOL,
-            nexusUrl: NEXUS_URL,
-            groupId: pom.groupId,
-            version: pom.version,
-            repository: NEXUS_REPOSITORY,
-            credentialsId: NEXUS_CREDENTIAL_ID,
-            artifacts: [
-              // Artifact generated such as .jar, .ear and .war files.
-              [artifactId: pom.artifactId,
-              classifier: '',
-              file: artifactPath,
-              type: pom.packaging
-            ],
-            // Lets upload the pom.xml file for additional information for Transitive dependencies
-            [artifactId: pom.artifactId,
-            classifier: '',
-            file: "pom.xml",
-            type: "pom"
-          ]
-        ])
-      }
-
-    }
-  } */
-
-}
-environment {
-  NEXUS_VERSION = 'nexus3'
-  NEXUS_URL = 'nexus:8081'
-  NEXUS_PROTOCOL = 'http'
-  NEXUS_REPOSITORY = 'maven-snapshots'
-  NEXUS_CREDENTIAL_ID = 'nexus-credentials'
-  SONARQUBE_URL = 'http://192.168.1.17'
-  SONARQUBE_PORT = '9000'
-}
+  }
+  environment {
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_URL = 'nexus:8081'
+    NEXUS_PROTOCOL = 'http'
+    NEXUS_REPOSITORY = 'maven-snapshots'
+    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+    SONARQUBE_URL = 'http://192.168.1.17'
+    SONARQUBE_PORT = '9000'
+  }
 }
