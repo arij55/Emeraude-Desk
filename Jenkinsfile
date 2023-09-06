@@ -164,7 +164,7 @@ $class: \'PmdPublisher\''''
 
       }
     }
-
+/*
     stage('Deploy Artifact To Nexus') {
       when {
         anyOf {
@@ -205,7 +205,7 @@ $class: \'PmdPublisher\''''
       }
 
     }
-  }
+  } */
 
 }
 environment {
