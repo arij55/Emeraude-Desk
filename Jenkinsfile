@@ -174,12 +174,11 @@ $class: \'PmdPublisher\''''
       }
       steps {
         script {
+          unstash 'pom'
+          unstash 'artifact'
           pom = readMavenPom file: "pom.xml";
           // Find built artifact under target folder
           filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-          // Print some info from the artifact found
-          echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-          // Extract the path from the File found
           artifactPath = filesByGlob[0].path;
           nexusArtifactUploader(
             nexusVersion: NEXUS_VERSION,
