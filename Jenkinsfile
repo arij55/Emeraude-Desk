@@ -163,6 +163,31 @@ $class: \'PmdPublisher\''''
         }
 
       }
+       stage('Deploy Artifact To Nexus') {
+   when {
+    anyOf { branch 'master'; branch 'develop' }
+   }
+   steps {
+    script {
+     unstash 'pom'
+     unstash 'artifact'
+     // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
+     pom = readMavenPom file: "pom.xml";
+     artifactPath = filesByGlob[0].path;
+      nexusArtifactUploader(
+       nexusVersion: NEXUS_VERSION,
+       protocol: NEXUS_PROTOCOL,
+       nexusUrl: NEXUS_URL,
+       groupId: pom.groupId,
+       version: pom.version,
+       repository: NEXUS_REPOSITORY,
+       credentialsId: NEXUS_CREDENTIAL_ID,
+  
+      )
+      
+    }
+   }
+  }
     }
 
   }
@@ -171,7 +196,7 @@ $class: \'PmdPublisher\''''
     NEXUS_URL = 'nexus:8081'
     NEXUS_PROTOCOL = 'http'
     NEXUS_REPOSITORY = 'maven-snapshots'
-    NEXUS_CREDENTIAL_ID = 'nexus-credentials'
+    NEXUS_CREDENTIAL_ID = 'Emeraude-Desk'
     SONARQUBE_URL = 'http://192.168.1.17'
     SONARQUBE_PORT = '9000'
   }
