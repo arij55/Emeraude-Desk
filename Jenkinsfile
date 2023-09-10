@@ -163,7 +163,8 @@ $class: \'PmdPublisher\''''
         }
 
       }
- stage('Deploy Artifact To Nexus') {
+    }
+      stage('Deploy Artifact To Nexus') {
    when {
     anyOf { branch 'master'; branch 'develop' }
    }
@@ -209,7 +210,7 @@ $class: \'PmdPublisher\''''
       
     }
 
-  }
+  
   environment {
     SONARQUBE_URL = 'http://192.168.1.17'
     SONARQUBE_PORT = '9000'
