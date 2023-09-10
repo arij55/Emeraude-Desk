@@ -206,3 +206,4 @@ $class: \'PmdPublisher\''''
     SONARQUBE_PORT = '9000'
   }
 }
+}
