@@ -196,7 +196,7 @@ $class: \'PmdPublisher\''''
 
   
     */
-  } } 
+  } 
     environment {
     NEXUS_VERSION = 'nexus3'
     NEXUS_URL = 'nexus:8081'
