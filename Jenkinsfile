@@ -166,7 +166,6 @@ $class: \'PmdPublisher\''''
     }
 
     stage('Deploy Artifact To Nexus') {
-   
       steps {
         script {
           pom = readMavenPom file: "pom.xml";
