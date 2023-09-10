@@ -206,5 +206,5 @@ $class: \'PmdPublisher\''''
     SONARQUBE_URL = 'http://192.168.1.17'
     SONARQUBE_PORT = '9000'
   }
-}
+
 }
