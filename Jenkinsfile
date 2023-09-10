@@ -168,6 +168,8 @@ $class: \'PmdPublisher\''''
     stage('Deploy Artifact To Nexus') {
       steps {
         script {
+          unstash 'pom'
+          unstash 'artifact'
           pom = readMavenPom file: "pom.xml";
 
           filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
@@ -202,6 +204,7 @@ $class: \'PmdPublisher\''''
             error "*** File: ${artifactPath}, could not be found";
           }
         }
+
       }
     }
 
