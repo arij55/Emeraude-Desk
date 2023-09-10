@@ -166,13 +166,7 @@ $class: \'PmdPublisher\''''
     }
 
     stage('Deploy Artifact To Nexus') {
-      when {
-        anyOf {
-          branch 'master'
-          branch 'develop'
-        }
-
-      }
+   
       steps {
         script {
           pom = readMavenPom file: "pom.xml";
@@ -204,7 +198,7 @@ $class: \'PmdPublisher\''''
                 file: "pom.xml",
                 type: "pom"]
               ]
-            );
+            )
           } else {
             error "*** File: ${artifactPath}, could not be found";
           }
