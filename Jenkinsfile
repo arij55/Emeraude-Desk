@@ -164,7 +164,7 @@ $class: \'PmdPublisher\''''
 
       }
     }
-
+/*
     stage('Deploy Artifact To Nexus') {
       steps {
         script {
@@ -207,7 +207,7 @@ $class: \'PmdPublisher\''''
 
       }
     }
-
+*/
   }
   environment {
     SONARQUBE_URL = 'http://192.168.1.17'
