@@ -36,7 +36,7 @@ mvn clean compile'''
             sh ' mvn checkstyle:checkstyle'
             sh '''$class: \'CheckStylePublisher\'               
                             
-                             
+                            
  '''
           }
         }
