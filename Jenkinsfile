@@ -177,34 +177,32 @@ $class: \'PmdPublisher\''''
           artifactPath = filesByGlob[0].path;
 
           artifactExists = fileExists artifactPath;
-          echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-          if (artifactExists) {
-            nexusArtifactUploader(
-              nexusVersion: 'nexus3',
-              protocol: 'http',
-              nexusUrl: 'localhost:8081',
-              groupId: 'tn.devops',
-              version: 'pom.0.0.1-SNAPSHOT',
-              repository: 'Emeraude-central-repository',
-              credentialsId: 'NEXUS_CRED',
-              artifacts: [
 
-                [artifactId: 'pom.demo',
-                classifier: '',
-                file: artifactPath,
-                type: pom.packaging
-              ],
-              // Lets upload the pom.xml file for additional information for Transitive dependencies
-              [artifactId: pom.artifactId,
+
+          nexusArtifactUploader(
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            nexusUrl: 'localhost:8081',
+            groupId: 'tn.devops',
+            version: 'pom.0.0.1-SNAPSHOT',
+            repository: 'Emeraude-central-repository',
+            credentialsId: 'NEXUS_CRED',
+            artifacts: [
+
+              [artifactId: 'pom.demo',
               classifier: '',
-              file: "pom.xml",
-              type: "pom"
-            ]
+              file: artifactPath,
+              type: pom.packaging
+            ],
+            // Lets upload the pom.xml file for additional information for Transitive dependencies
+            [artifactId: pom.artifactId,
+            classifier: '',
+            file: "pom.xml",
+            type: "pom"
           ]
-        )
-      } else {
-        error "*** File: ${artifactPath}, could not be found";
-      }
+        ]
+      )
+
     }
 
   }
