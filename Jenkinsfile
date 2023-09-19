@@ -201,7 +201,7 @@ $class: \'PmdPublisher\''''
               type: "pom"
             ]
           ]
-        );
+        )
       } else {
         error "*** File: ${artifactPath}, could not be found";
       }
