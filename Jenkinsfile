@@ -164,50 +164,7 @@ $class: \'PmdPublisher\''''
 
       }
     }
-/*
-    stage('Deploy Artifact To Nexus') {
-      steps {
-        script {
-          unstash 'pom'
-          unstash 'artifact'
-          pom = readMavenPom file: "pom.xml"
 
-          filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-          echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-
-          artifactPath = filesByGlob[0].path;
-
-          artifactExists = fileExists artifactPath;
-          if (artifactExists) {
-            nexusArtifactUploader(
-              nexusVersion: 'nexus3',
-              protocol: 'http',
-              nexusUrl: 'localhost:8081',
-              groupId: 'pom.tn.devops',
-              version: 'pom.0.0.1-SNAPSHOT',
-              repository:'EmeraudeDesk-central-repository',
-              credentialsId: 'NEXUS_CRED',
-              artifacts: [
-
-                [artifactId: 'pom.demo',
-                classifier: '',
-                file: artifactPath,
-                type: pom.packaging],
-
-                [artifactId: 'pom.demo',
-                classifier: '',
-                file: "pom.xml",
-                type: "pom"]
-              ]
-            )
-          } else {
-            error "*** File: ${artifactPath}, could not be found";
-          }
-        }
-
-      }
-    }
-*/
   }
   environment {
     SONARQUBE_URL = 'http://192.168.1.17'
