@@ -178,39 +178,44 @@ $class: \'PmdPublisher\''''
 
           artifactExists = fileExists artifactPath;
 
+          if(artifactExists) {
+            echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+            nexusArtifactUploader(
+              nexusVersion: NEXUS_VERSION,
+              protocol: NEXUS_PROTOCOL,
+              nexusUrl: NEXUS_URL,
+              groupId: 'tn.devops',
+              version: 'pom.0.0.1-SNAPSHOT',
 
-          nexusArtifactUploader(
-            nexusVersion: 'nexus3',
-            protocol: 'http',
-            nexusUrl: 'localhost:8081',
-            groupId: 'tn.devops',
-            version: 'pom.0.0.1-SNAPSHOT',
-            repository: 'Emeraude-central-repository',
-            credentialsId: 'NEXUS_CRED',
-            artifacts: [
+              repository: NEXUS_REPOSITORY,
+              credentialsId: NEXUS_CREDENTIAL_ID,
+              artifacts: [
+                [artifactId: 'pom.demo',
+                classifier: '',
+                file: artifactPath,
+                type: pom.packaging],
+                [artifactId: pom.artifactId,
+                classifier: '',
+                file: "pom.xml",
+                type: "pom"]
+              ]
+            );
+          } else {
+            error "*** File: ${artifactPath}, could not be found";
+          }
+        }
 
-              [artifactId: 'pom.demo',
-              classifier: '',
-              file: artifactPath,
-              type: pom.packaging
-            ],
-            // Lets upload the pom.xml file for additional information for Transitive dependencies
-            [artifactId: pom.artifactId,
-            classifier: '',
-            file: "pom.xml",
-            type: "pom"
-          ]
-        ]
-      )
-
+      }
     }
 
   }
-}
-
-}
-environment {
-SONARQUBE_URL = 'http://192.168.1.17'
-SONARQUBE_PORT = '9000'
-}
+  environment {
+    SONARQUBE_URL = 'http://192.168.1.17'
+    SONARQUBE_PORT = '9000'
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_PROTOCOL = 'http'
+    NEXUS_URL = 'http://localhost:8081'
+    NEXUS_REPOSITORY = 'Emeraude-central-repository'
+    NEXUS_CREDENTIAL_ID = 'NEXUS_CRED'
+  }
 }
