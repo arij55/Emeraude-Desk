@@ -188,12 +188,12 @@ $class: \'PmdPublisher\''''
               protocol: NEXUS_PROTOCOL,
               nexusUrl: NEXUS_URL,
               groupId: 'tn.devops',
-              version: 'pom.0.0.1-SNAPSHOT',
+              version: '0.0.1-SNAPSHOT',
 
               repository: NEXUS_REPOSITORY,
               credentialsId: NEXUS_CREDENTIAL_ID,
               artifacts: [
-                [artifactId: 'pom.demo',
+                [artifactId: 'demo',
                 classifier: '',
                 file: artifactPath,
                 type: pom.packaging],
