@@ -181,44 +181,20 @@ $class: \'PmdPublisher\''''
 
           artifactExists = fileExists artifactPath;
 
-          if(artifactExists) {
-            echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-            nexusArtifactUploader(
-              nexusVersion: NEXUS_VERSION,
-              protocol: NEXUS_PROTOCOL,
-              nexusUrl: NEXUS_URL,
-              groupId: 'tn.devops',
-              version: '0.0.1-SNAPSHOT',
 
-              repository: NEXUS_REPOSITORY,
-              credentialsId: NEXUS_CREDENTIAL_ID,
-              artifacts: [
-                [artifactId: 'demo',
-                classifier: '',
-                file: artifactPath,
-                type: pom.packaging],
-                [artifactId: pom.artifactId,
-
-                file: "pom.xml",
-              ]
-            ]
-          );
-        } else {
-          error "*** File: ${artifactPath}, could not be found";
         }
+
       }
-
     }
-  }
 
-}
-environment {
-  SONARQUBE_URL = 'http://192.168.1.17'
-  SONARQUBE_PORT = '9000'
-  NEXUS_VERSION = 'nexus3'
-  NEXUS_PROTOCOL = 'http'
-  NEXUS_URL = 'localhost:8081'
-  NEXUS_REPOSITORY = 'Emeraude-central-repository'
-  NEXUS_CREDENTIAL_ID = 'NEXUS_CRED'
-}
+  }
+  environment {
+    SONARQUBE_URL = 'http://192.168.1.17'
+    SONARQUBE_PORT = '9000'
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_PROTOCOL = 'http'
+    NEXUS_URL = 'localhost:8081'
+    NEXUS_REPOSITORY = 'Emeraude-central-repository'
+    NEXUS_CREDENTIAL_ID = 'NEXUS_CRED'
+  }
 }
