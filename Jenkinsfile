@@ -163,6 +163,50 @@ $class: \'PmdPublisher\''''
         }
 
       }
+      stage('Deploy Artifact To Nexus') {
+   steps {
+    script {
+  
+     pom = readMavenPom file: "pom.xml";
+    
+     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+     
+     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+     
+     artifactPath = filesByGlob[0].path;
+    
+     artifactExists = fileExists artifactPath;
+       echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+     if (artifactExists) {
+      nexusArtifactUploader(
+       nexusVersion: 'nexus3',
+       protocol: 'http',
+       nexusUrl: 'localhost:8081',
+       groupId: 'tn.devops',
+       version: 'pom.0.0.1-SNAPSHOT',
+       repository: 'Emeraude-central-repository',
+       credentialsId: 'NEXUS_CRED',
+       artifacts: [
+     
+        [artifactId: 'pom.demo',
+         classifier: '',
+         file: artifactPath,
+         type: pom.packaging
+        ],
+        // Lets upload the pom.xml file for additional information for Transitive dependencies
+        [artifactId: pom.artifactId,
+         classifier: '',
+         file: "pom.xml",
+         type: "pom"
+        ]
+       ]
+      );
+     } else {
+      error "*** File: ${artifactPath}, could not be found";
+     }
+    }
+   }
+  }
     }
 
   }
