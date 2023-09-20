@@ -23,7 +23,6 @@ pipeline {
 mvn clean compile'''
           }
         }
-
         stage('CheckStyle') {
           agent {
             docker {
@@ -31,13 +30,12 @@ mvn clean compile'''
               reuseNode true
               image 'huangzp88/maven-openjdk17'
             }
-
           }
           steps {
             sh ' mvn checkstyle:checkstyle'
             sh '''$class: \'CheckStylePublisher\'               
                             
-                            
+                           
  '''
           }
         }
