@@ -92,7 +92,8 @@ mvn clean compile'''
 
       }
       steps {
-        sh 'mvn verify '
+        sh '''mvn verify 
+'''
       }
     }
 
