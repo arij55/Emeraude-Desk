@@ -180,6 +180,7 @@ $class: \'PmdPublisher\''''
           artifactPath = filesByGlob[0].path;
 
           artifactExists = fileExists artifactPath;
+          /*
           if (artifactExists) {
             nexusArtifactUploader(
               nexusVersion: NEXUS_VERSION,
@@ -206,7 +207,21 @@ $class: \'PmdPublisher\''''
         )
       } else {
         error "*** File: ${artifactPath}, could not be found";
+      }*/}}
+          stage('Build Docker image') {
+        steps {
+        script {
+        sh 'docker build --tag EmeraudeDesk .'
       }
+    }}
+    stage('Push image to Hub') {
+       steps {
+        script {
+          withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerhub')]){
+        sh 'docker login -u arijkch -p ${dockerhub}'
+        sh 'docker push EmeraudeDesk'
+      }
+    }
     }
 
   }
