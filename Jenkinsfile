@@ -6,7 +6,6 @@ pipeline {
         checkout scm
       }
     }
-
     stage('Build') {
       parallel {
         stage('Compile') {
@@ -207,7 +206,7 @@ $class: \'PmdPublisher\''''
         )
       } else {
         error "*** File: ${artifactPath}, could not be found";
-      }*/}}
+      }*/}}}
           stage('Build Docker image') {
         steps {
         script {
@@ -227,7 +226,7 @@ $class: \'PmdPublisher\''''
   }
 }
 
-}
+
 environment {
 SONARQUBE_URL = 'http://192.168.1.17'
 SONARQUBE_PORT = '9000'
