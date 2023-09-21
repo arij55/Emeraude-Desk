@@ -1,11 +1,6 @@
-FROM maven:3.6.0-jdk-8-alpine AS builder
-ADD ./pom.xml pom.xml
-ADD ./src src/
+FROM openjdk:11
+LABEL version="1.0" maintainer="Arij Khchérif <https://github.com/arij55>"
+COPY target/demo-0.0.1-SNAPSHOT.jar demo-0.0.1-SNAPSHOT.jar
 
 
-#Seconde stage: minimal runtime environment
-
-
-EXPOSE 8080
-
-CMD ["java","-jar","demo-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","demo-0.0.1-SNAPSHOT.jar"]
