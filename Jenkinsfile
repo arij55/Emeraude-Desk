@@ -189,7 +189,7 @@ $class: \'PmdPublisher\''''
     stage('Build Docker image') {
       steps {
         script {
-          sh 'docker build --tag EmeraudeDesk .'
+          sh 'docker build --tag emeraudedesk .'
         }
 
       }
