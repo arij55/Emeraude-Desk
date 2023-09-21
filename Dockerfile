@@ -1,6 +1,6 @@
-FROM openjdk:11
+FROM openjdk:17
+
 LABEL version="1.0" maintainer="Arij Khchérif <https://github.com/arij55>"
-COPY target/demo-0.0.1-SNAPSHOT.war demo-0.0.1-SNAPSHOT.war
+COPY target/demo-0.0.1-SNAPSHOT.jar demo-0.0.1-SNAPSHOT.jar
 
-
-ENTRYPOINT ["java","-war","demo-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/demo-0.0.1-SNAPSHOT.jar"]
