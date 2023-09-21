@@ -198,10 +198,10 @@ $class: \'PmdPublisher\''''
     stage('Push image to Hub') {
       steps {
         script {
-          withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerhub')]){
-            sh 'docker login arijkch arij@2023'
-            sh 'docker push emeraudedesk'
-          }
+          sh 'docker login arijkch arij@2023'
+          sh 'docker tag emeraudedesk arijkch/emeraude-desk'
+          sh 'docker push arijkch/emeraude-desk'
+
         }
 
       }
