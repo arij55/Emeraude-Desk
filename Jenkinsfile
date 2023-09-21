@@ -198,7 +198,6 @@ $class: \'PmdPublisher\''''
     stage('Push image to Hub') {
       steps {
         script {
-
           sh 'docker tag emeraudedesk arijkch/emeraude-desk'
           sh 'docker push arijkch/emeraude-desk'
         }
