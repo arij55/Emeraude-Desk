@@ -200,7 +200,7 @@ $class: \'PmdPublisher\''''
         script {
           withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerhub')]){
             sh 'docker login -u arijkch -p ${dockerhub}'
-            sh 'docker push EmeraudeDesk'
+            sh 'docker push emeraudedesk'
           }
         }
 
