@@ -199,7 +199,7 @@ $class: \'PmdPublisher\''''
       steps {
         script {
           withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerhub')]){
-            sh 'docker login -u arijkch -p ${dockerhub}'
+            sh 'docker login arijkch arij@2023'
             sh 'docker push emeraudedesk'
           }
         }
