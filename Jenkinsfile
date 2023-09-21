@@ -198,10 +198,9 @@ $class: \'PmdPublisher\''''
     stage('Push image to Hub') {
       steps {
         script {
-          sh 'docker login arijkch arij@2023'
+
           sh 'docker tag emeraudedesk arijkch/emeraude-desk'
           sh 'docker push arijkch/emeraude-desk'
-
         }
 
       }
